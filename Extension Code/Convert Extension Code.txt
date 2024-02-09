@@ -1,0 +1,187 @@
+class ConvertExtension {
+    constructor(runtime) {
+        this.runtime = runtime;
+    }
+
+    getInfo() {
+        return {
+            id: 'convert',
+            name: 'Convert',
+            color1: '#FF4500', // Dark Orange/Red color
+            blocks: [
+                {
+                    opcode: 'convertLength',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Convert [value] [unit1] to [unit2]',
+                    arguments: {
+                        value: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 200,
+                        },
+                        unit1: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'lengthUnits',
+                            defaultValue: 'cm',
+                        },
+                        unit2: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'lengthUnits',
+                            defaultValue: 'm',
+                        },
+                    },
+                },
+                {
+                    opcode: 'convertWeight',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Convert [value] [unit1] to [unit2]',
+                    arguments: {
+                        value: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 200,
+                        },
+                        unit1: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'weightUnits',
+                            defaultValue: 'g',
+                        },
+                        unit2: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'weightUnits',
+                            defaultValue: 'kg',
+                        },
+                    },
+                },
+                {
+                    opcode: 'convertTemperature',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Convert [value] [unit1] to [unit2]',
+                    arguments: {
+                        value: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 2,
+                        },
+                        unit1: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'temperatureUnits',
+                            defaultValue: 'Celsius',
+                        },
+                        unit2: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'temperatureUnits',
+                            defaultValue: 'Celsius',
+                        },
+                    },
+                },
+                {
+                    opcode: 'convertTime',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Convert [value] [unit1] to [unit2]',
+                    arguments: {
+                        value: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 200,
+                        },
+                        unit1: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'timeUnits',
+                            defaultValue: 'milliseconds',
+                        },
+                        unit2: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'timeUnits',
+                            defaultValue: 'seconds',
+                        },
+                    },
+                },
+            ],
+            menus: {
+                lengthUnits: ['m', 'km', 'cm', 'mm', 'μm', 'nm', 'mile', 'yard', 'foot'],
+                weightUnits: ['kg', 'g', 'mg', 'ton', 'pound', 'ounce'],
+                temperatureUnits: ['Celsius', 'Fahrenheit'],
+                timeUnits: ['milliseconds', 'seconds', 'minutes', 'hours', 'days', 'weeks', 'years', 'decades', 'centuries'],
+            },
+        };
+    }
+
+    convertLength(args) {
+        const { value, unit1, unit2 } = args;
+        const conversionFactors = {
+            m: 1,
+            km: 1000,
+            cm: 0.01,
+            mm: 0.001,
+            μm: 1e-6,
+            nm: 1e-9,
+            mile: 1609.34,
+            yard: 0.9144,
+            foot: 0.3048,
+        };
+
+        const result = (value * conversionFactors[unit1]) / conversionFactors[unit2];
+        return result;
+    }
+
+    convertWeight(args) {
+        const { value, unit1, unit2 } = args;
+        const conversionFactors = {
+            kg: 1,
+            g: 0.001,
+            mg: 1e-6,
+            ton: 1000,
+            pound: 0.453592,
+            ounce: 0.0283495,
+        };
+
+        const result = (value * conversionFactors[unit1]) / conversionFactors[unit2];
+        return result;
+    }
+
+    convertTemperature(args) {
+        const { value, unit1, unit2 } = args;
+
+        if (unit1 === 'Celsius' && unit2 === 'Fahrenheit') {
+            return (value * 9/5) + 32;
+        } else if (unit1 === 'Fahrenheit' && unit2 === 'Celsius') {
+            return (value - 32) * 5/9;
+        } else {
+            return value;  // No conversion needed if units are the same
+        }
+    }
+
+    convertTime(args) {
+        const { value, unit1, unit2 } = args;
+        const conversionFactors = {
+            milliseconds: 1,
+            seconds: 1000,
+            minutes: 60000,
+            hours: 3600000,
+            days: 86400000,
+            weeks: 604800000,
+            years: 31536000000,
+            decades: 315360000000,
+            centuries: 3153600000000,
+        };
+
+        const result = (value * conversionFactors[unit1]) / conversionFactors[unit2];
+        return result;
+    }
+
+    get iconURL() {
+        return 'https://raw.githubusercontent.com/FreddieThePebble/Turbowarp-Extensions/Icons-(Images)/Convert%20Extension%20Icon.png';
+    }
+}
+
+Scratch.extensions.register(new ConvertExtension());
+
+const metadata = {
+    extensionName: 'Convert',
+    extensionId: 'convert',
+    author: 'FreddieThePebble',
+    description: 'Convert lengths, weights, temperatures, and times',
+    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Turbowarp-Extensions/Icons-(Images)/Convert%20Extension%20Icon.png',
+    previewURL: '',
+    tags: ['convert', 'length', 'weight', 'temperature', 'time'],
+    featured: false,
+};
+
+Scratch.extensions.registerMetadata(metadata);

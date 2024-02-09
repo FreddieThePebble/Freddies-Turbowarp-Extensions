@@ -1,0 +1,92 @@
+class MorseCodeExtension {
+    constructor(runtime) {
+        this.runtime = runtime;
+    }
+
+    getInfo() {
+        return {
+            id: 'morsecode',
+            name: 'Morse Code',
+            color1: '#FFFFFF', // White color
+            blocks: [
+                {
+                    opcode: 'textToMorseCode',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: '[text] In Morse Code',
+                    arguments: {
+                        text: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'FreddieThePebble',
+                        },
+                    },
+                },
+                {
+                    opcode: 'morseCodeToText',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: '[morseCode] From Morse Code',
+                    arguments: {
+                        morseCode: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: '..-. .-. . -.. -.. .. . - .... . .--. . -... -... .-.. .',
+                        },
+                    },
+                },
+            ],
+        };
+    }
+
+    textToMorseCode(args) {
+        const { text } = args;
+        const alphabet = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+            'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+            'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
+            '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
+            ' ': '/'
+        };
+
+        return text.split('').map(char => alphabet[char.toUpperCase()] || '').join(' ');
+    }
+
+    morseCodeToText(args) {
+        const { morseCode } = args;
+        const alphabet = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+            'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+            'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
+            '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
+            ' ': '/'
+        };
+
+        const morseCodeArray = morseCode.split(' ');
+        const textArray = morseCodeArray.map(code => {
+            for (const [key, value] of Object.entries(alphabet)) {
+                if (value === code) {
+                    return key;
+                }
+            }
+            return '';
+        });
+
+        return textArray.join('').toLowerCase();
+    }
+
+    get iconURL() {
+        return 'https://raw.githubusercontent.com/FreddieThePebble/Turbowarp-Extensions/Icons-(Images)/Morse%20Code%20Extension%20Icon.png';
+    }
+}
+
+Scratch.extensions.register(new MorseCodeExtension());
+
+const morseCodeMetadata = {
+    extensionName: 'Morse Code',
+    extensionId: 'morsecode',
+    author: 'FreddieThePebble',
+    description: 'Convert text to Morse code and vice versa',
+    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Turbowarp-Extensions/Icons-(Images)/Morse%20Code%20Extension%20Icon.png',
+    previewURL: '',
+    tags: ['morse code', 'text', 'conversion'],
+    featured: false,
+};
+
+Scratch.extensions.registerMetadata(morseCodeMetadata);
