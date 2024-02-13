@@ -1,0 +1,86 @@
+class BrailleExtension {
+    constructor(runtime) {
+        this.runtime = runtime;
+    }
+
+    getInfo() {
+        return {
+            id: 'braille',
+            name: 'Braille Translator',
+            color1: '#FFFFFF', // White background
+            color2: '#000000', // Black text
+            blocks: [
+                {
+                    opcode: 'textToBraille',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: '[text] In Braille',
+                    arguments: {
+                        text: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'FreddieThePebble',
+                        },
+                    },
+                },
+                {
+                    opcode: 'brailleToText',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: '[braille] From Braille',
+                    arguments: {
+                        braille: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: '⠝⠑⠧⠑⠗⠙⠑⠽⠙⠁⠝⠙⠀⠛⠑⠑⠀⠛⠑⠓⠓⠕⠝⠙⠁⠀⠕⠝⠝⠀⠛⠑⠧⠑⠙',
+                        },
+                    },
+                },
+            ],
+        };
+    }
+
+    textToBraille(args) {
+        const { text } = args;
+        const brailleAlphabet = {
+            'A': '⠠⠁', 'B': '⠠⠃', 'C': '⠠⠉', 'D': '⠠⠙', 'E': '⠠⠑', 'F': '⠠⠋', 'G': '⠠⠛', 'H': '⠠⠓', 'I': '⠠⠊', 'J': '⠠⠚',
+            'K': '⠠⠅', 'L': '⠠⠇', 'M': '⠠⠍', 'N': '⠠⠝', 'O': '⠠⠕', 'P': '⠠⠏', 'Q': '⠠⠟', 'R': '⠠⠗', 'S': '⠠⠎', 'T': '⠠⠥',
+            'U': '⠠⠧', 'V': '⠠⠺', 'W': '⠠⠽', 'X': '⠠⠭', 'Y': '⠠⠵', 'Z': '⠠⠯',
+            '1': '⠼⠚', '2': '⠼⠋', '3': '⠼⠙', '4': '⠼⠛', '5': '⠼⠓', '6': '⠼⠏', '7': '⠼⠟', '8': '⠼⠗', '9': '⠼⠎', '0': '⠼⠥',
+            ' ': '⠠⠀'
+        };
+
+        return text.split('').map(char => brailleAlphabet[char.toUpperCase()] || '').join(' ');
+    }
+
+    brailleToText(args) {
+        const { braille } = args;
+        const brailleAlphabet = {
+            '⠠⠁': 'A', '⠠⠃': 'B', '⠠⠉': 'C', '⠠⠙': 'D', '⠠⠑': 'E', '⠠⠋': 'F', '⠠⠛': 'G', '⠠⠓': 'H', '⠠⠊': 'I', '⠠⠚': 'J',
+            '⠠⠅': 'K', '⠠⠇': 'L', '⠠⠍': 'M', '⠠⠝': 'N', '⠠⠕': 'O', '⠠⠏': 'P', '⠠⠟': 'Q', '⠠⠗': 'R', '⠠⠎': 'S', '⠠⠥': 'T',
+            '⠠⠧': 'U', '⠠⠺': 'V', '⠠⠽': 'W', '⠠⠭': 'X', '⠠⠵': 'Y', '⠠⠯': 'Z',
+            '⠼⠚': '1', '⠼⠋': '2', '⠼⠙': '3', '⠼⠛': '4', '⠼⠓': '5', '⠼⠏': '6', '⠼⠟': '7', '⠼⠗': '8', '⠼⠎': '9', '⠼⠥': '0',
+            '⠠⠀': ' ' // Space
+        };
+
+        const brailleArray = braille.split(' ');
+        const textArray = brailleArray.map(code => brailleAlphabet[code] || '');
+
+        return textArray.join('');
+    }
+
+    get iconURL() {
+        return 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Braille%20Extension%20Icon.png';
+    }
+}
+
+Scratch.extensions.register(new BrailleExtension());
+
+const brailleMetadata = {
+    extensionName: 'Braille Translator',
+    extensionId: 'braille',
+    author: 'Your Name',
+    description: 'Convert text to Braille and vice versa',
+    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Braille%20Extension%20Icon.png',
+    previewURL: '',
+    tags: ['braille', 'text', 'conversion'],
+    featured: false,
+};
+
+Scratch.extensions.registerMetadata(brailleMetadata);
