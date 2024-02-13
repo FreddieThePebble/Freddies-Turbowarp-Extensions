@@ -1,0 +1,146 @@
+class ShareExtension {
+    constructor(runtime) {
+        this.runtime = runtime;
+    }
+
+    getInfo() {
+        return {
+            id: 'share',
+            name: 'Share',
+            color1: '#00BFFF',
+            blocks: [
+                {
+                    opcode: 'copyURLToClipboard',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Copy Current URL to Clipboard',
+                },
+                {
+                    opcode: 'getCurrentURL',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Current URL',
+                },
+                {
+                    opcode: 'shareWithEmail',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Share with email [EMAIL] and subject [SUBJECT]',
+                    color1: '#8B0AEF',
+                    arguments: {
+                        EMAIL: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'placeholder@email.com',
+                        },
+                        SUBJECT: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'Share',
+                        },
+                    },
+                },
+                {
+                    opcode: 'shareOnTwitter',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Share on Twitter',
+                    color1: '#1DA1F2',
+                },
+                {
+                    opcode: 'shareOnReddit',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Share on Reddit',
+                    color1: '#FF5700',
+                },
+                {
+                    opcode: 'shareOnFacebook',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Share on Facebook',
+                    color1: '#316FF6',
+                },
+                {
+                    opcode: 'shareOnWhatsApp',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Share on WhatsApp',
+                    color1: '#25D366',
+                },
+                {
+                    opcode: 'shareOnLinkedIn',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Share on LinkedIn',
+                    color1: '#0e76a8',
+                },
+                {
+                    opcode: 'shareOnPinterest',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: 'Share on Pinterest',
+                    color1: '#E60023',
+                },
+            ],
+        };
+    }
+
+    copyURLToClipboard() {
+        const urlToCopy = window.location.href;
+        const tempInput = document.createElement('input');
+        tempInput.value = urlToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+    }
+
+    getCurrentURL() {
+        return window.location.href;
+    }
+
+    shareWithEmail(args) {
+        const { EMAIL, SUBJECT } = args;
+        const currentURL = encodeURIComponent(window.location.href);
+        window.open(`mailto:${EMAIL}?subject=${SUBJECT}&body=${currentURL}`, '_blank');
+    }
+
+    shareOnTwitter() {
+        const currentURL = encodeURIComponent(window.location.href);
+        window.open(`https://twitter.com/share?url=${currentURL}`, '_blank');
+    }
+
+    shareOnReddit() {
+        const currentURL = encodeURIComponent(window.location.href);
+        window.open(`https://www.reddit.com/submit?url=${currentURL}`, '_blank');
+    }
+
+    shareOnFacebook() {
+        const currentURL = encodeURIComponent(window.location.href);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${currentURL}`, '_blank');
+    }
+
+    shareOnWhatsApp() {
+        const currentURL = encodeURIComponent(window.location.href);
+        window.open(`https://api.whatsapp.com/send?text=${currentURL}`, '_blank');
+    }
+
+    shareOnLinkedIn() {
+        const currentURL = encodeURIComponent(window.location.href);
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${currentURL}`, '_blank');
+    }
+
+    shareOnPinterest() {
+        const currentURL = encodeURIComponent(window.location.href);
+        window.open(`https://pinterest.com/pin/create/button/?url=${currentURL}`, '_blank');
+    }
+
+    get iconURL() {
+        return 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Share%20Extension%20Icon.png';
+    }
+}
+
+Scratch.extensions.register(new ShareExtension());
+
+const metadata = {
+    extensionName: 'Share',
+    extensionId: 'share',
+    author: 'FreddieThePebble',
+    description: 'Share your games with the ability to copy the current URL to the clipboard and share on Reddit, Facebook, Twitter, LinkedIn, Pinterest, WhatsApp, and via email.',
+    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Share%20Extension%20Icon.png',
+    previewURL: '',
+    tags: ['share', 'URL', 'clipboard', 'games', 'Reddit', 'Facebook', 'Twitter', 'LinkedIn', 'Pinterest', 'WhatsApp', 'email'],
+    featured: false,
+};
+
+Scratch.extensions.registerMetadata(metadata);
