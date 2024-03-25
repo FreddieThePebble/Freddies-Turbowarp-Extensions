@@ -1,0 +1,54 @@
+class RoundExtension {
+    constructor(runtime) {
+        this.runtime = runtime;
+    }
+
+    getInfo() {
+        return {
+            id: 'round',
+            name: 'Round',
+            color1: '#bf22aa',
+            blocks: [
+                {
+                    opcode: 'roundToDecimalPlaces',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Round [num] to [decimal] Decimal Places',
+                    arguments: {
+                        num: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 0,
+                        },
+                        decimal: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 2,
+                        },
+                    },
+                },
+            ],
+        };
+    }
+
+    roundToDecimalPlaces(args) {
+        const { num, decimal } = args;
+        return parseFloat(num.toFixed(decimal));
+    }
+
+    get iconURL() {
+        return 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Round%20Extension%20Icon.png';
+    }
+}
+
+Scratch.extensions.register(new RoundExtension());
+
+const metadata = {
+    extensionName: 'Round',
+    extensionId: 'round',
+    author: 'FreddieThePebble',
+    description: 'Round numbers to a specified number of decimal places',
+    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Round%20Extension%20Icon.png',
+    previewURL: '',
+    tags: ['round', 'decimal places', 'math'],
+    featured: false,
+};
+
+Scratch.extensions.registerMetadata(metadata);
