@@ -1,0 +1,247 @@
+class CensorExtension {
+    constructor(runtime) {
+        this.runtime = runtime;
+    }
+
+    getInfo() {
+        return {
+            id: 'censor',
+            name: 'Censorship',
+            color1: '#CB291C',
+            blocks: [
+                {
+                    opcode: 'censorText',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Censor [text] using [method]',
+                    arguments: {
+                        text: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'Turbowarp',
+                        },
+                        method: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'censorMethod',
+                            defaultValue: 'Grawlix',
+                        }
+                    },
+                },
+                {
+                    opcode: 'censorLetterRange',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Censor Letter [start] to [end] of [text] using [method]',
+                    arguments: {
+                        start: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 2,
+                        },
+                        end: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 4,
+                        },
+                        text: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'Food',
+                        },
+                        method: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'censorMethod',
+                            defaultValue: 'Asterisk',
+                        },
+                    },
+                },
+                {
+                    opcode: 'censorSubstring',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Censor [substring] in [text] using [method]',
+                    arguments: {
+                        substring: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'Freddie',
+                        },
+                        text: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'FreddieThePebble',
+                        },
+                        method: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'censorMethod',
+                            defaultValue: 'Grawlix',
+                        },
+                    },
+                },
+            ],
+            menus: {
+                censorMethod: ['Grawlix', 'Asterisk'],
+            }
+        };
+    }
+
+    censorText(args) {
+        const { text, method } = args;
+        if (method === 'Grawlix') {
+            const symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '+', '=', '-', '_'];
+            let censoredText = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (char.match(/[a-z]/i)) {
+                    const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                    censoredText += randomSymbol;
+                } else {
+                    censoredText += char;
+                }
+            }
+            
+            return censoredText;
+        } else if (method === 'Asterisk') {
+            let censoredText = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                censoredText += '*';
+            }
+            
+            return censoredText;
+        }
+    }
+
+    censorLetterRange(args) {
+        const { start, end, text, method } = args;
+        let censoredText = '';
+
+        if (method === 'Grawlix') {
+            const grawlixSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '+', '=', '-', '_'];
+            for (let i = 0; i < text.length; i++) {
+                if (i >= start - 1 && i <= end - 1) {
+                    const randomSymbol = grawlixSymbols[Math.floor(Math.random() * grawlixSymbols.length)];
+                    censoredText += randomSymbol;
+                } else {
+                    censoredText += text[i];
+                }
+            }
+        } else if (method === 'Asterisk') {
+            for (let i = 0; i < text.length; i++) {
+                if (i >= start - 1 && i <= end - 1) {
+                    censoredText += '*';
+                } else {
+                    censoredText += text[i];
+                }
+            }
+        }
+
+        return censoredText;
+    }
+
+    censorSubstring(args) {
+        const { substring, text, method } = args;
+        let censoredText = '';
+
+        if (method === 'Grawlix') {
+            const grawlixSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '+', '=', '-', '_'];
+            const startIndex = text.indexOf(substring);
+            if (startIndex !== -1) {
+                for (let i = 0; i < text.length; i++) {
+                    if (i >= startIndex && i < startIndex + substring.length) {
+                        const randomSymbol = grawlixSymbols[Math.floor(Math.random() * grawlixSymbols.length)];
+                        censoredText += randomSymbol;
+                    } else {
+                        censoredText += text[i];
+                    }
+                }
+            } else {
+                censoredText = text;
+            }
+        } else if (method === 'Asterisk') {
+            const startIndex = text.indexOf(substring);
+            if (startIndex !== -1) {
+                for (let i = 0; i < text.length; i++) {
+                    if (i >= startIndex && i < startIndex + substring.length) {
+                        censoredText += '*';
+                    } else {
+                        censoredText += text[i];
+                    }
+                }
+            } else {
+                censoredText = text;
+            }
+        }
+
+        return censoredText;
+    }
+}
+
+Scratch.extensions.register(new CensorExtension());
+
+const metadata = {
+    extensionName: 'Censorship',
+    extensionId: 'censor',
+    author: 'FreddieThePebble',
+    description: 'Censor text with Asterisks or Grawlix',
+    color1: '#CB291C',
+    blocks: [
+        {
+            opcode: 'censorText',
+            blockType: 'reporter',
+            text: 'Censor [text] using [method]',
+            arguments: {
+                text: {
+                    type: 'string',
+                    defaultValue: 'Egg',
+                },
+                method: {
+                    type: 'string',
+                    menu: 'censorMethod',
+                    defaultValue: 'Grawlix',
+                },
+            },
+        },
+        {
+            opcode: 'censorLetterRange',
+            blockType: 'reporter',
+            text: 'Censor Letter [start] to [end] of [text] using [method]',
+            arguments: {
+                start: {
+                    type: 'number',
+                    defaultValue: 1,
+                },
+                end: {
+                    type: 'number',
+                    defaultValue: 1,
+                },
+                text: {
+                    type: 'string',
+                    defaultValue: 'Hello',
+                },
+                method: {
+                    type: 'string',
+                    menu: 'censorMethod',
+                    defaultValue: 'Grawlix',
+                },
+            },
+        },
+        {
+            opcode: 'censorSubstring',
+            blockType: 'reporter',
+            text: 'Censor [substring] in [text] using [method]',
+            arguments: {
+                substring: {
+                    type: 'string',
+                    defaultValue: 'Egg',
+                },
+                text: {
+                    type: 'string',
+                    defaultValue: 'Egg Feet',
+                },
+                method: {
+                    type: 'string',
+                    menu: 'censorMethod',
+                    defaultValue: 'Grawlix',
+                },
+            },
+        },
+    ],
+    menus: {
+        censorMethod: ['Grawlix', 'Asterisk'],
+    }
+};
+
+Scratch.extensions.registerMetadata(metadata);
