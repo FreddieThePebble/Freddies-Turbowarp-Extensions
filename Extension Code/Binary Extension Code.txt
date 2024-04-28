@@ -57,7 +57,7 @@ const binaryExtensionMetadata = {
     extensionId: 'binary',
     author: 'FreddieThePebble',
     description: 'Convert Binary to Text and Text to Binary',
-    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Binary%20Extension%20Icon.png',
+    iconURL: '',
     previewURL: '',
     tags: ['binary', 'text', 'conversion'],
     featured: false,
