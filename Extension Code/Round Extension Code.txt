@@ -45,7 +45,7 @@ const metadata = {
     extensionId: 'round',
     author: 'FreddieThePebble',
     description: 'Round numbers to a specified number of decimal places',
-    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Round%20Extension%20Icon.png',
+    iconURL: '',
     previewURL: '',
     tags: ['round', 'decimal places', 'math'],
     featured: false,
