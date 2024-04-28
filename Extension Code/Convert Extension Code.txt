@@ -178,7 +178,7 @@ const metadata = {
     extensionId: 'convert',
     author: 'FreddieThePebble',
     description: 'Convert lengths, weights, temperatures, and times',
-    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Turbowarp-Extensions/Icons-(Images)/Convert%20Extension%20Icon.png',
+    iconURL: '',
     previewURL: '',
     tags: ['convert', 'length', 'weight', 'temperature', 'time'],
     featured: false,
