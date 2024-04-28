@@ -83,7 +83,7 @@ const morseCodeMetadata = {
     extensionId: 'morsecode',
     author: 'FreddieThePebble',
     description: 'Convert text to Morse code and vice versa',
-    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Turbowarp-Extensions/Icons-(Images)/Morse%20Code%20Extension%20Icon.png',
+    iconURL: '',
     previewURL: '',
     tags: ['morse code', 'text', 'conversion'],
     featured: false,
