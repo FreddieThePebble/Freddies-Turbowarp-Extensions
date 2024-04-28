@@ -77,7 +77,7 @@ const brailleMetadata = {
     extensionId: 'braille',
     author: 'Your Name',
     description: 'Convert text to Braille and vice versa',
-    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Braille%20Extension%20Icon.png',
+    iconURL: '',
     previewURL: '',
     tags: ['braille', 'text', 'conversion'],
     featured: false,
