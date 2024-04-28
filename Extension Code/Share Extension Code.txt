@@ -137,7 +137,7 @@ const metadata = {
     extensionId: 'share',
     author: 'FreddieThePebble',
     description: 'Share your games with the ability to copy the current URL to the clipboard and share on Reddit, Facebook, Twitter, LinkedIn, Pinterest, WhatsApp, and via email.',
-    iconURL: 'https://raw.githubusercontent.com/FreddieThePebble/Freddies-Turbowarp-Extensions/main/Icons/Share%20Extension%20Icon.png',
+    iconURL: '',
     previewURL: '',
     tags: ['share', 'URL', 'clipboard', 'games', 'Reddit', 'Facebook', 'Twitter', 'LinkedIn', 'Pinterest', 'WhatsApp', 'email'],
     featured: false,
