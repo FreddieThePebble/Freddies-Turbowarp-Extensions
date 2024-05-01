@@ -1,0 +1,131 @@
+class CharType {
+    getInfo() {
+        return {
+            id: 'charType',
+            name: 'Character Type',
+            color1: '#c26eb1',
+            blocks: [
+                {
+                    opcode: 'charType',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Character Type of [input]',
+                    arguments: {
+                        input: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'F'
+                        }
+                    }
+                },
+                {
+                    opcode: 'countCharType',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Amount of [category] in [input]',
+                    arguments: {
+                        input: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'FreddieThePebble662428!'
+                        },
+                        category: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'charTypeCategories',
+                            defaultValue: 'Letter'
+                        }
+                    }
+                },
+                {
+                    opcode: 'isCharType',
+                    blockType: Scratch.BlockType.BOOLEAN,
+                    text: 'Is [input] a [category]',
+                    arguments: {
+                        input: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: '64'
+                        },
+                        category: {
+                            type: Scratch.ArgumentType.STRING,
+                            menu: 'charTypeCategories',
+                            defaultValue: 'Number'
+                        }
+                    }
+                }
+            ],
+            menus: {
+                charTypeCategories: ['Number', 'Letter', 'Symbol', 'Emoji']
+            }
+        };
+    }
+
+    charType(args) {
+        const char = Scratch.Cast.toString(args.input);
+        const charCode = char.charCodeAt(0);
+
+        if (char.length === 0) {
+            return "";
+        } else if (charCode >= 48 && charCode <= 57) {
+            return "Number";
+        } else if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) {
+            return "Letter";
+        } else if ((charCode >= 33 && charCode <= 47) || (charCode >= 58 && charCode <= 64) || 
+                   (charCode >= 91 && charCode <= 96) || (charCode >= 123 && charCode <= 126)) {
+            return "Symbol";
+        } else if ((charCode >= 128 && charCode <= 591) || (charCode >= 880 && charCode <= 2047) || 
+                   (charCode >= 8192 && charCode <= 127488)) {
+            return "Emoji";
+        } else {
+            return "Special Character";
+        }
+    }
+
+    isCharType(args) {
+        const char = Scratch.Cast.toString(args.input);
+        const category = args.category.toLowerCase();
+        const charCode = char.charCodeAt(0);
+
+        switch (category) {
+            case 'number':
+                return charCode >= 48 && charCode <= 57;
+            case 'letter':
+                return (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122);
+            case 'symbol':
+                return (charCode >= 33 && charCode <= 47) || (charCode >= 58 && charCode <= 64) || 
+                       (charCode >= 91 && charCode <= 96) || (charCode >= 123 && charCode <= 126);
+            case 'emoji':
+                return (charCode >= 128 && charCode <= 591) || (charCode >= 880 && charCode <= 2047) || 
+                       (charCode >= 8192 && charCode <= 127488);
+            default:
+                return false;
+        }
+    }
+
+    countCharType(args) {
+        const input = Scratch.Cast.toString(args.input);
+        const category = args.category.toLowerCase();
+        let count = 0;
+
+        for (let i = 0; i < input.length; i++) {
+            const charCode = input.charCodeAt(i);
+            switch (category) {
+                case 'number':
+                    if (charCode >= 48 && charCode <= 57) count++;
+                    break;
+                case 'letter':
+                    if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) count++;
+                    break;
+                case 'symbol':
+                    if ((charCode >= 33 && charCode <= 47) || (charCode >= 58 && charCode <= 64) || 
+                        (charCode >= 91 && charCode <= 96) || (charCode >= 123 && charCode <= 126)) count++;
+                    break;
+                case 'emoji':
+                    if ((charCode >= 128 && charCode <= 591) || (charCode >= 880 && charCode <= 2047) || 
+                        (charCode >= 8192 && charCode <= 127488)) count++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return count;
+    }
+}
+
+Scratch.extensions.register(new CharType());
