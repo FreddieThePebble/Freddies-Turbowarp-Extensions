@@ -1,0 +1,68 @@
+class MyExtension {
+    getInfo() {
+        return {
+            id: 'numberRangeChecker',
+            name: 'Beetween',
+            color1: '#9abd58',
+            author: 'FreddieThePebble',
+            blocks: [
+                {
+                    opcode: 'isBetweenReporter',
+                    blockType: Scratch.BlockType.REPORTER,
+                    text: 'Is [number] between [value1] and [value2]',
+                    arguments: {
+                        number: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 6
+                        },
+                        value1: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 4
+                        },
+                        value2: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 8
+                        }
+                    }
+                },
+                {
+                    opcode: 'isBetweenBoolean',
+                    blockType: Scratch.BlockType.BOOLEAN,
+                    text: 'Is [number] between [value1] and [value2]',
+                    arguments: {
+                        number: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 6
+                        },
+                        value1: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 4
+                        },
+                        value2: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 8
+                        }
+                    }
+                }
+            ]
+        };
+    }
+
+    isBetweenReporter(args) {
+        const number = args.number;
+        const value1 = args.value1;
+        const value2 = args.value2;
+        
+        return number >= Math.min(value1, value2) && number <= Math.max(value1, value2);
+    }
+
+    isBetweenBoolean(args) {
+        const number = args.number;
+        const value1 = args.value1;
+        const value2 = args.value2;
+        
+        return number >= Math.min(value1, value2) && number <= Math.max(value1, value2);
+    }
+}
+
+Scratch.extensions.register(new MyExtension());
