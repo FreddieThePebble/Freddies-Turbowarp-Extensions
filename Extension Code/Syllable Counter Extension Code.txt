@@ -1,0 +1,43 @@
+class SyllableCounter {
+    getInfo() {
+        return {
+            id: 'syllablecounter',
+            name: 'Syllable Counter',
+            color1: '#E8BF23',
+            author: 'FreddieThePebble',
+            blocks: [
+                {
+                    opcode: 'countSyllables',
+                    blockType: 'reporter',
+                    text: 'Syllables In [Turbowarp]',
+                    arguments: {
+                        Turbowarp: {
+                            type: 'string',
+                            defaultValue: 'Turbowarp'
+                        }
+                    }
+                }
+            ]
+        };
+    }
+
+    countSyllables(args) {
+        const word = args.Turbowarp.toLowerCase();
+        if (word.length === 0) return 0;
+
+        const vowels = 'aeiouy';
+        const syllablePattern = /[^aeiouy]*[aeiouy]+/g;
+        let syllables = 0;
+
+        let matches = word.match(syllablePattern);
+        if (matches) syllables = matches.length;
+
+        // Adjust for special cases
+        if (word.endsWith('e')) syllables = Math.max(1, syllables - 1);
+        if (word.endsWith('le') && word.length > 2 && !vowels.includes(word[word.length - 3])) syllables++;
+
+        return syllables;
+    }
+}
+
+Scratch.extensions.register(new SyllableCounter());
